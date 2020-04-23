@@ -1,3 +1,3 @@
 Ferramentas
 ===========
-Local para armazenar códigos úteis.
+Local para armazenar scripts úteis que já utilizei em algum momento
