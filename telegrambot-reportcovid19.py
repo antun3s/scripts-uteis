@@ -1,10 +1,13 @@
 # insert your token bot here:
-token = '325442748:AAEjf6eAE5EY4Tn7v366daus-z_TI3yCGUg'
+token = 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS'
 
 import requests
 from bs4 import BeautifulSoup
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+
+# Covid19
+# Raspagem de dados em: https://www.worldometers.info/coronavirus/country/brazil
 
 # Retorna a URL de acordo pais consultado
 def geturl(country):
@@ -28,8 +31,44 @@ def getdata(country):
         'Óbitos: ' + death + '\n' + \
         'Recuperados: ' + recovered + '\n\n')
     else:
-        print('pagina invalida')
+        print('pais invalida')
         message = 'País não localizado, por favor use o nome em inglês\nEx: para Italia utilize "italy", e EUA utilize "US"' 
+    return (message)
+
+
+# Stocks
+# Raspagem de dados em https://query1.finance.yahoo.com/v8/finance/chart/ITUB3.SA
+
+def getstock(stockid):
+    print(stockid)
+    url = 'https://query1.finance.yahoo.com/v8/finance/chart/' + stockid + '.SA'
+    r = requests.get(url)
+    print (r.status_code)
+    if r.status_code == 200:
+        stockdata = r.json()
+        price = stockdata['chart']['result'][0]['meta']['regularMarketPrice']
+        previousclose = stockdata['chart']['result'][0]['meta']['chartPreviousClose']
+        variation = price - previousclose
+        variation = float("{:.2f}".format(variation))
+        percentage = ( price - previousclose ) / previousclose * 100
+        percentage = float("{:.2f}".format(percentage))
+        if percentage >= 0:
+            chart = '📈'
+        else:
+            chart = '📉'
+        price = str(price)
+        variation = str(variation)
+        percentage = str(percentage)
+
+        #print('price: ', price)
+        #print('previousclose: ', previousclose)
+        #print('variation: ', variation)
+        #print('percentage: ', percentage)
+    
+        message = stockid + ': ' + chart + '\n' + price + '\n' + percentage + '%  (' + variation + ')'
+    else:
+        print('ação invalida')
+        message = 'Código de ação não localizado' 
     return (message)
 
 # Enable logging
@@ -47,7 +86,8 @@ def start(update, context):
 def help(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text ('Função disponível:\n\
-        /codid19 Italy : informa os numeros de Covid19 de cada país' )
+        /covid19 Italy : informa os numeros de Covid19 do país\n\
+        /stock ITSA4 : informa a cotação de ação da ação e FII' )
 
 def echo(update, context):
     """Echo the user message."""
@@ -76,6 +116,17 @@ def covid19(update, context):
     answer = getdata(country)
     update.message.reply_text(answer)
 
+def stock(update, context):
+    """Return Stock data"""
+    print('entrou em stock')
+
+    #Retira o início do comando da string recebida
+    stockid = update.message.text
+    stockid = stockid[7:]    
+    print ('stockid: ' + stockid )
+    answer = getstock(stockid.upper())
+    update.message.reply_text(answer)
+
 def main():
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
@@ -90,6 +141,7 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("covid19", covid19, pass_args=True))
+    dp.add_handler(CommandHandler("stock", stock, pass_args=True))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
