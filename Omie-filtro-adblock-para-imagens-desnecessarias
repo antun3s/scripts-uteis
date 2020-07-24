@@ -1,0 +1,6 @@
+! https://app.omie.com.br
+! Retira imagens desnecessaŕias da tela de login do Omie
+https://cdn.omie.com.br/images/today/2020/07/24%20(2).jpg
+https://cdn.omie.com.br/images/super-omie.png
+https://cdn.omie.com.br/images/love-*.png
+https://app.omie.com.br/resources/system/imagens/modules/img-*.jpg
