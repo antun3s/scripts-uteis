@@ -5,10 +5,6 @@
 
 # Verifica a versão do Proxmox
 pve_version=$(pveversion | cut -d'/' -f2 | cut -d'.' -f1)
-
-if [ "$pve_version" == "pve-manager" ]; then
-  pve_version=$(pveversion | cut -d'/' -f2)
-fi
 echo "# Utilizando o PVE na versão " $pve_version
 
 if [ "$pve_version" == "7" ]; then
