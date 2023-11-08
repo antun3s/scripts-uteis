@@ -3,6 +3,9 @@
 # Ele copia as configurações relevantes do zabbix-agent e replica no arquivo zabbix-agent2
 # Feito para utilizar no Proxmox PVE nas versões 7 e 8
 
+# Para executar, use interpretador bash:
+# curl https://raw.githubusercontent.com/antun3s/scripts-uteis/master/zabbix-agent2-install-and-copy-zabbix-agent-config.sh | bash
+
 # Verifica a versão do Proxmox
 pve_version=$(pveversion | cut -d'/' -f2 | cut -d'.' -f1)
 echo "# Utilizando o PVE na versão " $pve_version
@@ -52,3 +55,21 @@ systemctl restart zabbix-agent2
 # Cria o arquivo sudoers.d para o usuário zabbix
 echo "# Dando permissoes para o usuario zabbix executar o smard sem senha"
 echo "zabbix ALL=(ALL) NOPASSWD:/usr/sbin/smartctl" > /etc/sudoers.d/smartd
+
+# Mensagem final
+echo "Executado com sucesso!
+ 
+ Sugestão de comandos para analisar o status atual:
+ 
+# Listar pacotes instalados do zabbix:
+dpkg -l | grep -i zabbix
+
+# Checar se o serviço zabbix-agent2 está rodando
+systemctl status zabbix-agent2.service
+
+# Verificar últimos logs do zabbix-agent2
+tail /var/log/zabbix/zabbix_agent2.log 
+
+# Checar se o usuario zabbix consegue executar o smart sem senha
+cat /etc/sudoers.d/smartd 
+"
