@@ -15,7 +15,7 @@ if [ "$pve_version" == "6" ]; then
   zabbix_package_url="https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_6.0-4+debian10_all.deb"
 elif [ "$pve_version" == "7" ]; then
   # Baixa e instala o pacote Zabbix para Proxmox 7.0
-  zabbix_package_url="https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_6.0-2+debian11_all.deb"
+  zabbix_package_url="https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_6.0-4+debian11_all.deb"
 elif [ "$pve_version" == "8" ]; then
   # Baixa e instala o pacote Zabbix para Proxmox 8.0
   zabbix_package_url="https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_6.0-5+debian12_all.deb"
