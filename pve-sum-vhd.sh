@@ -3,7 +3,7 @@
 # This script analyzes the VM configurations on Proxmox Virtual Environment, extracts the disk sizes, and calculates the total space used by each storage.
 
 # to run:
-# curl -s https://raw.githubusercontent.com/antun3s/scripts-uteis/refs/heads/master/pve-sum-vhd.sh | sh
+# curl -s https://raw.githubusercontent.com/antun3s/scripts-uteis/refs/heads/master/pve-sum-vhd.sh | bash
 
 # Function to conver to GB
 convert_to_gb() {
