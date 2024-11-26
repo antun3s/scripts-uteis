@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+  - name: Edit email
+    ansible.builtin.lineinfile:
+      path: /etc/vzdump.conf
+      regexp: 'mailto: '
+      line: 'mailto: backup@o3cloud.com.br'
+      backup: true
+
+  - name: Edit notes
+    ansible.builtin.lineinfile:
+      path: /etc/vzdump.conf
+      regexp: 'notes-template:'
+      line: "notes-template: {{ '{{' }} cluster {{ '}}' }}, {{ '{{' }} guestname {{ '}}' }}, {{ '{{' }} node {{ '}}' }}, {{ '{{' }} vmid {{ '}}' }}"
