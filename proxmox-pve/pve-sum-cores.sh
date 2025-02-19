@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# This script analyzes the VM configurations on Proxmox Virtual Environment, extracts the core info, and calculates the total core used.
+
+# to run:
+# curl -s https://raw.githubusercontent.com/antun3s/scripts-uteis/refs/heads/master/proxmox-pve/pve-sum-cores.sh | bash
+
 # Directory where the .conf files are located
 DIR="/etc/pve/nodes/$(hostname)/qemu-server"
 
