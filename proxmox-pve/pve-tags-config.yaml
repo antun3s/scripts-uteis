@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: true
+  
+  tasks:
+    - name: Criar ou atualizar o arquivo datacenter.cfg
+      copy:
+        dest: /etc/pve/datacenter.cfg
+        content: |
+          keyboard: pt-br
+          tag-style: color-map=prod:1c71d8:FFFFFF;implan:f9f06b:000000;teste:f66151:FFFFFF;template:5e5c64:FFFFFF,shape=full
+      register: datacenter_cfg
+
+    - name: Exibir mensagem se o arquivo foi modificado
+      debug:
+        msg: "O arquivo datacenter.cfg foi criado ou atualizado"
+      when: datacenter_cfg.changed
